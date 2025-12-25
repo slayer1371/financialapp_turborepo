@@ -34,6 +34,7 @@ export const authOptions = {
           }
 
           const hashedPassword = await bcrypt.hash(password, 10);
+          console.log(hashedPassword);
 
           // number is unique in schema → prefer findUnique
           const existingUser = await prisma.user.findFirst({

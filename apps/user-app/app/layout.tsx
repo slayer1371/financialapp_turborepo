@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Providers } from "./providers";
+import { AppbarClient } from "./components/Appbar-client";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -20,8 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={geist.className}>
         <Providers>
+          <AppbarClient />
             {children}
-            </Providers>
+          </Providers>
       </body>
     </html>
   );
