@@ -1,24 +1,9 @@
-import {prisma} from "@repo/db";
+
+import SendMoney from "../../components/SendMoneyp2p";
+import { P2pTransactions } from "../../components/P2pTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
-import { OnRampTransactions } from "../../components/OnRampTxn";
-import { P2pTransactions } from "../../components/P2pTransactions";
-
-
-async function getOnRampTransactions() {
-    const session = await getServerSession(authOptions);
-    const txns = await prisma.onRampTransaction.findMany({
-        where: {
-            userId: Number(session?.user?.id)
-        }
-    });
-    return txns.map(t => ({
-        time: t.startTime,
-        amount: t.amount,
-        status: t.status,
-        provider: t.provider
-    }))
-}
+import { prisma } from "@repo/db";
 
 async function getP2pTransactions() {
     const session = await getServerSession(authOptions);
@@ -55,13 +40,22 @@ async function getP2pTransactions() {
     }));
 }
 
-export default async function transact (){
-    const transactions = await getOnRampTransactions();
-    const transactionsp2p = await getP2pTransactions();
+export default async function P2PTransfer() {
+    const transactions = await getP2pTransactions();
 
-    return <div className="w-screen p-4">
-        <OnRampTransactions transactions={transactions} />
-        <div></div>
-        <P2pTransactions transactions={transactionsp2p} />
-    </div>
+    return (
+        <div className="w-full">
+            <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
+                P2P Transfer
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
+                <div>
+                    <SendMoney />
+                </div>
+                <div>
+                    <P2pTransactions transactions={transactions} />
+                </div>
+            </div>
+        </div>
+    );
 }
