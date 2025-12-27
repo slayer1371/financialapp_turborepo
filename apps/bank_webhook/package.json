@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=esm --target=node18 --outfile=dist/index.js --external:express --external:pg --external:dotenv",
+    "start": "node dist/index.js",
+    "dev": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
+    "@repo/db": "*",
     "@types/express": "^5.0.6",
+    "dotenv": "^17.2.3",
     "esbuild": "^0.27.2",
-    "express": "^5.2.1",
-    "@repo/db": "*"
+    "express": "^5.2.1"
   }
 }
