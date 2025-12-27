@@ -19,7 +19,8 @@ jobs :
           run : npm install
 
         - name : Initialize prisma client
-          run : npx prisma generate --schema=packages/db/prisma/schema.prisma
+          working-directory: packages/db
+          run: npx prisma generate
             
         - name : Run build
           run : npm run build
