@@ -15,6 +15,9 @@ jobs :
           with :
             node-version : '20'
 
+        - name : Initialize prisma client
+          run : cd packages/db && npx prisma generate
+
         - name : Install dependencies
           run : npm install
 
