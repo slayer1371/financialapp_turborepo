@@ -8,6 +8,9 @@ on :
 jobs :
   build :
     runs-on : ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://postgres:password@localhost:5432/testdb"     
+
     steps :
         - uses : actions/checkout@v3
         - name : Use Node.js
@@ -17,8 +20,10 @@ jobs :
 
         - name : Install dependencies
           run : npm install
-          env:
-            DATABASE_URL: "postgresql://postgres:password@localhost:5432/testdb"        
+
+        - name: Generate Prisma Client
+          run: npx prisma generate
+          working-directory: packages/db
             
         - name : Run build
           run : npm run build
