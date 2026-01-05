@@ -11,7 +11,7 @@ COPY packages ./packages
 #install dependencies
 RUN npm install
 
-RUN cd/packages/db && npx prisma generate & cd ../..
+RUN cd packages/db && npx prisma generate && cd ../..
 
 RUN npm run build
 
