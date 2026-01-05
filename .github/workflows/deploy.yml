@@ -24,7 +24,9 @@ jobs:
         context: .
         file: ./docker/Dockerfile.user
         push: true
-        tags: mrinal1371/week-18-turborepo:latest  # Replace with your Docker Hub username and repository
+        tags: mrinal1371/week-18-turborepo:latest  
+        build-args: |
+          DATABASE_URL=postgresql://postgres:password@localhost:5432/testdb
 
     - name: Verify Pushed Image
-      run: docker pull mrinal1371/week-18-turborepo:latest  # Replace with your Docker Hub username and repository
+      run: docker pull mrinal1371/week-18-turborepo:latest
